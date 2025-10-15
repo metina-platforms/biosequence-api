@@ -11,7 +11,9 @@ class SequenceType(str, Enum):
 
 class SequenceRequest(BaseModel):
     sequence: str = Field(..., description="The biological sequence to analyze")
-    sequence_type: SequenceType = Field(default=SequenceType.DNA, description="Type of sequence")
+    sequence_type: SequenceType = Field(
+        default=SequenceType.DNA, description="Type of sequence"
+    )
 
 
 class SequenceResponse(BaseModel):

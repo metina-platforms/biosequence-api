@@ -5,7 +5,7 @@ from app.core.config import settings
 
 class SupabaseClient:
     _client: Optional[Client] = None
-    
+
     @classmethod
     def get_client(cls) -> Client:
         if cls._client is None:
@@ -13,7 +13,7 @@ class SupabaseClient:
                 raise ValueError("Supabase URL and key must be configured")
             cls._client = create_client(settings.supabase_url, settings.supabase_key)
         return cls._client
-    
+
     @classmethod
     def close(cls):
         if cls._client:

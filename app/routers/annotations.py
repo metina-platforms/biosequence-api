@@ -5,6 +5,7 @@ from app.services.annotation_service import AnnotationService
 router = APIRouter()
 annotation_service = AnnotationService()
 
+
 @router.post("/find-orfs", response_model=list[AnnotationResponse])
 async def find_open_reading_frames(request: AnnotationRequest):
     """
@@ -15,6 +16,7 @@ async def find_open_reading_frames(request: AnnotationRequest):
         return orfs
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.post("/find-motifs")
 async def find_motifs(request: AnnotationRequest):
@@ -27,6 +29,7 @@ async def find_motifs(request: AnnotationRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+
 @router.post("/gc-content")
 async def calculate_gc_content(request: AnnotationRequest):
     """
@@ -34,8 +37,7 @@ async def calculate_gc_content(request: AnnotationRequest):
     """
     try:
         gc_content = annotation_service.calculate_gc_content_window(
-            request.sequence, 
-            request.window_size or 100
+            request.sequence, request.window_size or 100
         )
         return {"gc_content": gc_content}
     except Exception as e:

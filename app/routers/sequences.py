@@ -5,6 +5,7 @@ from app.services.sequence_service import SequenceAnalyzer
 router = APIRouter()
 sequence_analyzer = SequenceAnalyzer()
 
+
 @router.post("/analyze", response_model=SequenceAnalysis)
 async def analyze_sequence(sequence_request: SequenceRequest):
     """
@@ -12,12 +13,12 @@ async def analyze_sequence(sequence_request: SequenceRequest):
     """
     try:
         analysis = sequence_analyzer.analyze_sequence(
-            sequence_request.sequence, 
-            sequence_request.sequence_type
+            sequence_request.sequence, sequence_request.sequence_type
         )
         return analysis
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.post("/reverse-complement", response_model=SequenceResponse)
 async def get_reverse_complement(sequence_request: SequenceRequest):
@@ -30,6 +31,7 @@ async def get_reverse_complement(sequence_request: SequenceRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+
 @router.post("/transcribe", response_model=SequenceResponse)
 async def transcribe_dna(sequence_request: SequenceRequest):
     """
@@ -40,6 +42,7 @@ async def transcribe_dna(sequence_request: SequenceRequest):
         return SequenceResponse(sequence=result)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @router.post("/translate", response_model=SequenceResponse)
 async def translate_sequence(sequence_request: SequenceRequest):
